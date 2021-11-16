@@ -10,7 +10,9 @@ public class LoginTest {
     @Test
     void test_login_success() {
         loginService = new LoginService();
-        loginService.addStoredUser("kalle", "password");
+        String salt = PasswordHandler.generateSalt(24).get();
+
+        loginService.addStoredUser("kalle", PasswordHandler.hashPassword("password", salt).get(), salt);
 
         assertTrue(loginService.login("kalle", "password"));
     }

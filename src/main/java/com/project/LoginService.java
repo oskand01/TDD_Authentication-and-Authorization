@@ -12,27 +12,29 @@ public class LoginService {
 
     public Boolean login(String username, String password) {
 
-        if(storedUsers.get(username) != null) {
+        if (storedUsers.get(username) != null) {
             StoredUser storedUser = storedUsers.get(username);
-
-            if(storedUser.getPassword().equals(password)) {
+            if (PasswordHandler.verifyPassword(password, storedUser.getEncryptedPassword(), storedUser.getSalt())) {
                 return true;
             }
         }
         return false;
     }
 
-    public void addStoredUser(String username, String password) {
-        storedUsers.put(username, new StoredUser(username, password));
+
+    public void addStoredUser(String username, String encryptedPassword, String salt) {
+        storedUsers.put(username, new StoredUser(username, encryptedPassword, salt));
     }
 
     private class StoredUser {
         private String username;
-        private String password;
+        private String encryptedPassword;
+        private String salt;
 
-        public StoredUser(String username, String password) {
+        public StoredUser(String username, String password, String salt) {
             this.username = username;
-            this.password = password;
+            this.encryptedPassword = password;
+            this.salt = salt;
         }
 
         public String getUsername() {
@@ -43,12 +45,20 @@ public class LoginService {
             this.username = username;
         }
 
-        public String getPassword() {
-            return password;
+        public String getEncryptedPassword() {
+            return encryptedPassword;
         }
 
-        public void setPassword(String password) {
-            this.password = password;
+        public void setEncryptedPassword(String encryptedPassword) {
+            this.encryptedPassword = encryptedPassword;
+        }
+
+        public String getSalt() {
+            return salt;
+        }
+
+        public void setSalt(String salt) {
+            this.salt = salt;
         }
     }
 }
