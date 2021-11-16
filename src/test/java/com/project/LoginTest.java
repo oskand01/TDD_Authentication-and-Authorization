@@ -12,7 +12,7 @@ public class LoginTest {
     void test_login_success() {
         loginService = new LoginService();
 
-        assertTrue(loginService.login("anna", "losen"));
+        assertTrue(loginService.login("kalle", "password"));
     }
 }
 
