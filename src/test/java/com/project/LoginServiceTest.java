@@ -14,9 +14,7 @@ public class LoginServiceTest {
     @BeforeEach
     void setUp() {
         loginService = new LoginService();
-        String salt = PasswordHandler.generateSalt(24).get();
-
-        loginService.addStoredUser("kalle", PasswordHandler.hashPassword("password", salt).get(), salt);
+        loginService.addStoredUser("kalle", "password");
     }
 
     @Test

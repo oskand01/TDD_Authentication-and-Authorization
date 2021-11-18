@@ -13,15 +13,17 @@ public class LoginService {
         if (storedUsers.get(username) != null) {
             StoredUser storedUser = storedUsers.get(username);
             if (PasswordHandler.verifyPassword(password, storedUser.getEncryptedPassword(), storedUser.getSalt())) {
-                sessionToken = new SessionToken();
+                sessionToken = new SessionToken(true);
                 return sessionToken;
             }
         }
         throw new InvalidLoginException();
     }
 
-    public void addStoredUser(String username, String encryptedPassword, String salt) {
-        storedUsers.put(username, new StoredUser(username, encryptedPassword, salt));
+    public void addStoredUser(String username, String password) {
+        String salt = PasswordHandler.generateSalt(24).get();
+
+        storedUsers.put(username, new StoredUser(username, PasswordHandler.hashPassword(password, salt).get(), salt));
     }
 
     public SessionToken getSessionToken() {
