@@ -6,24 +6,26 @@ import java.util.Map;
 public class LoginService {
 
     private Map<String, StoredUser> storedUsers = new HashMap<>();
+    private SessionToken sessionToken;
 
-    public LoginService() {
-    }
-
-    public Boolean login(String username, String password) {
+    public SessionToken login(String username, String password) throws InvalidLoginException {
 
         if (storedUsers.get(username) != null) {
             StoredUser storedUser = storedUsers.get(username);
             if (PasswordHandler.verifyPassword(password, storedUser.getEncryptedPassword(), storedUser.getSalt())) {
-                return true;
+                sessionToken = new SessionToken();
+                return sessionToken;
             }
         }
-        return false;
+        throw new InvalidLoginException();
     }
-
 
     public void addStoredUser(String username, String encryptedPassword, String salt) {
         storedUsers.put(username, new StoredUser(username, encryptedPassword, salt));
+    }
+
+    public SessionToken getSessionToken() {
+        return sessionToken;
     }
 
     private class StoredUser {
