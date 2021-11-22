@@ -9,26 +9,26 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class ValidateTokenServiceTest {
+public class TokenControllerTest {
 
-    ValidateTokenService validateTokenService;
+    TokenController tokenController;
 
     @BeforeEach
     void setUp() {
 
         SessionToken sessionToken = new SessionToken(true, "berit", Map.of(Resource.ACCOUNT, List.of(Right.READ, Right.WRITE)));
-        validateTokenService = new ValidateTokenService(sessionToken);
+        tokenController = new TokenController(sessionToken);
     }
 
     @Test
     void test_validate_token_success() {
 
-        assertTrue(validateTokenService.validateToken());
+        assertTrue(tokenController.validateToken());
     }
 
     @Test
     void test_get_user_rights_success() {
 
-        assertEquals(List.of("READ", "WRITE"), validateTokenService.getUserRights(Resource.ACCOUNT));
+        assertEquals(List.of("READ", "WRITE"), tokenController.getUserRights(Resource.ACCOUNT));
     }
 }

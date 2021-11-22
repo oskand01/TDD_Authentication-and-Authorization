@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class LoginService {
+public class LoginController {
 
     private final Map<String, StoredUser> storedUsers = new HashMap<>();
     private List<SessionToken> sessionTokens = new ArrayList<>();
