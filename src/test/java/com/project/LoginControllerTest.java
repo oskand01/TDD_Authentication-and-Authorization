@@ -15,9 +15,10 @@ public class LoginControllerTest {
 
     @BeforeEach
     void setUp() {
-        loginController = new LoginController();
+        UserService userService = new UserService();
+        loginController = new LoginController(userService);
         String salt = PasswordHandler.generateSalt(24).get();
-        loginController.addStoredUser("kalle", "password", salt, Map.of());
+        userService.addStoredUser("kalle", "password", salt, Map.of());
     }
 
     @Test
