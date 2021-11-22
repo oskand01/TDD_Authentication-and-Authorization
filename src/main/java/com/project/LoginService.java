@@ -9,7 +9,7 @@ public class LoginService {
     private final Map<String, StoredUser> storedUsers = new HashMap<>();
     private SessionToken sessionToken;
 
-    public SessionToken login(String username, String password) throws InvalidLoginException {
+    public String login(String username, String password) throws InvalidLoginException {
 
         if (storedUsers.containsKey(username)) {
             StoredUser storedUser = storedUsers.get(username);
@@ -17,7 +17,7 @@ public class LoginService {
 
             if (validLogin) {
                 sessionToken = new SessionToken(true, storedUser.getUsername(), storedUser.getPrivileges());
-                return sessionToken;
+                return sessionToken.toString();
             }
         }
         throw new InvalidLoginException();

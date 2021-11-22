@@ -14,12 +14,9 @@ public class ValidateTokenServiceTest {
     ValidateTokenService validateTokenService;
 
     @BeforeEach
-    void setUp() throws InvalidLoginException {
-        LoginService loginService = new LoginService();
-        String salt = PasswordHandler.generateSalt(24).get();
+    void setUp() {
 
-        loginService.addStoredUser("berit", "123456", salt, Map.of(Resource.ACCOUNT, List.of(Right.READ, Right.WRITE)));
-        SessionToken sessionToken = loginService.login("berit", "123456");
+        SessionToken sessionToken = new SessionToken(true, "berit", Map.of(Resource.ACCOUNT, List.of(Right.READ, Right.WRITE)));
         validateTokenService = new ValidateTokenService(sessionToken);
     }
 
