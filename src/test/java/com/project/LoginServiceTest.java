@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
+import java.util.Map;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class LoginServiceTest {
@@ -14,7 +16,8 @@ public class LoginServiceTest {
     @BeforeEach
     void setUp() {
         loginService = new LoginService();
-        loginService.addStoredUser("kalle", "password");
+        String salt = PasswordHandler.generateSalt(24).get();
+        loginService.addStoredUser("kalle", "password", salt, Map.of());
     }
 
     @Test

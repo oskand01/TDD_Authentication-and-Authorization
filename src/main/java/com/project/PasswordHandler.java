@@ -55,7 +55,6 @@ public class PasswordHandler {
 
     public static boolean verifyPassword(String password, String key, String salt) {
         Optional<String> optEncrypted = hashPassword(password, salt);
-        if (!optEncrypted.isPresent()) return false;
-        return optEncrypted.get().equals(key);
+        return optEncrypted.map(s -> s.equals(key)).orElse(false);
     }
 }

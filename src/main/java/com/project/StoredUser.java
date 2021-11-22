@@ -1,37 +1,37 @@
 package com.project;
 
-public class StoredUser {
-    private String username;
-    private String encryptedPassword;
-    private String salt;
+import java.util.List;
+import java.util.Map;
 
-    public StoredUser(String username, String password, String salt) {
+public class StoredUser {
+    private final String username;
+    private final String encryptedPassword;
+    private final String salt;
+    private final Map<Resource, List<Right>> privileges;
+
+    public StoredUser(String username,
+                      String password,
+                      String salt,
+                      Map<Resource, List<Right>> privileges) {
         this.username = username;
         this.encryptedPassword = password;
         this.salt = salt;
+        this.privileges = privileges;
     }
 
     public String getUsername() {
         return username;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
     public String getEncryptedPassword() {
         return encryptedPassword;
-    }
-
-    public void setEncryptedPassword(String encryptedPassword) {
-        this.encryptedPassword = encryptedPassword;
     }
 
     public String getSalt() {
         return salt;
     }
 
-    public void setSalt(String salt) {
-        this.salt = salt;
+    public Map<Resource, List<Right>> getPrivileges() {
+        return privileges;
     }
 }
