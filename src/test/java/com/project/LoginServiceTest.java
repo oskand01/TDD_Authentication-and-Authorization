@@ -24,7 +24,7 @@ public class LoginServiceTest {
     void test_login_with_encrypted_password_return_token_success() throws InvalidLoginException {
         String sessionToken = loginService.login("kalle", "password");
 
-        assertEquals(loginService.getSessionToken().toString(), sessionToken);
+        assertEquals(loginService.getSessionToken("kalle").toString(), sessionToken);
     }
 
     @ParameterizedTest

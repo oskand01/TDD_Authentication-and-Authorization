@@ -1,5 +1,6 @@
 package com.project;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -7,7 +8,7 @@ import java.util.Map;
 public class LoginService {
 
     private final Map<String, StoredUser> storedUsers = new HashMap<>();
-    private SessionToken sessionToken;
+    private List<SessionToken> sessionTokens = new ArrayList<>();
 
     public String login(String username, String password) throws InvalidLoginException {
 
@@ -16,7 +17,8 @@ public class LoginService {
             boolean validLogin = PasswordHandler.verifyPassword(password, storedUser.getEncryptedPassword(), storedUser.getSalt());
 
             if (validLogin) {
-                sessionToken = new SessionToken(true, storedUser.getUsername(), storedUser.getPrivileges());
+                SessionToken sessionToken = new SessionToken(true, storedUser.getUsername(), storedUser.getPrivileges());
+                sessionTokens.add(sessionToken);
                 return sessionToken.toString();
             }
         }
@@ -31,7 +33,10 @@ public class LoginService {
         storedUsers.put(username, new StoredUser(username, PasswordHandler.hashPassword(password, salt).get(), salt, privileges));
     }
 
-    public SessionToken getSessionToken() {
-        return sessionToken;
+    public SessionToken getSessionToken(String username) {
+        for(SessionToken token: sessionTokens) {
+            if(token.getUsername().equals(username)) return token;
+        }
+        return null;
     }
 }

@@ -25,4 +25,8 @@ public class SessionToken {
         }
         return null;
     }
+
+    public String getUsername() {
+        return username;
+    }
 }
