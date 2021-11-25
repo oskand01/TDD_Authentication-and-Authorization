@@ -34,4 +34,5 @@ public class StoredUser {
     public Map<Resource, List<Right>> getPrivileges() {
         return privileges;
     }
+
 }
