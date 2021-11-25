@@ -1,4 +1,4 @@
-package com.project;
+package com.project.Util;
 
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;

@@ -1,5 +1,6 @@
-package com.project;
+package com.project.Util;
 
+import com.project.Entity.StoredUser;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import java.nio.charset.StandardCharsets;

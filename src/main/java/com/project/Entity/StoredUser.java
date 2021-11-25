@@ -1,4 +1,7 @@
-package com.project;
+package com.project.Entity;
+
+import com.project.Enum.Resource;
+import com.project.Enum.Right;
 
 import java.util.List;
 import java.util.Map;

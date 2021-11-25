@@ -1,4 +1,4 @@
-package com.project;
+package com.project.Exception;
 
 public class InvalidLoginException extends Exception {
     public InvalidLoginException() {
